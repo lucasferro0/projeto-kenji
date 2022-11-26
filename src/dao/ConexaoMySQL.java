@@ -1,4 +1,4 @@
-package models;
+package dao;
 //Classes necessárias para uso de Banco de dados //
 import java.sql.Connection;
 import java.sql.DriverManager;

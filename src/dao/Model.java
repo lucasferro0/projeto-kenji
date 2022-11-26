@@ -1,4 +1,4 @@
-package models;
+package dao;
 
 import java.util.HashMap;
 import java.util.ArrayList;
