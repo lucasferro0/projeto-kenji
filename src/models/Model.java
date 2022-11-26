@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Model 
+public abstract class Model 
 {
     String table;
 
