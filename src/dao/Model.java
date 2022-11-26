@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.ResultSetMetaData;
 
+/**
+ * @deprecated Em breve vou tirar essa classe
+ */
 public abstract class Model 
 {
     String table;
