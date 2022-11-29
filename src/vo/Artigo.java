@@ -1,7 +1,7 @@
 package vo;
 
 public class Artigo {
-	private long idArtigo;
+	private int idArtigo;
 	private String tituloArtigo;
 	private String conteudoArtigo;
 	private Categoria categoriaArtigo;

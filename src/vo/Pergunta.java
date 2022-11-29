@@ -1,7 +1,7 @@
 package vo;
 
 public class Pergunta {
-	private int idResposta;
+	private int idPergunta;
 	private String conteudoPergunta;
 	private Categoria categoriaPergunta;
 	private Usuario usuarioPergunta;
@@ -15,12 +15,12 @@ public class Pergunta {
 		this.setUsuarioPergunta(usuarioPergunta);
 	}
 
-	public void setIdResposta(int idResposta) {
-		this.idResposta = idResposta;
+	public void setIdPergunta(int idPergunta) {
+		this.idPergunta = idPergunta;
 	}
 	
-	public int getIdResposta() {
-		return idResposta;
+	public int getIdPergunta() {
+		return idPergunta;
 	}
 	
 	public void setConteudoPergunta(String conteudoPergunta) {

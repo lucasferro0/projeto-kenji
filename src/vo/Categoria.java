@@ -1,7 +1,7 @@
 package vo;
 
 public class Categoria {
-	private long idCategoria;
+	private int idCategoria;
 	private String categoria;
 	
 	public Categoria() {
