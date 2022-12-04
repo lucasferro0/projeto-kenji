@@ -2,6 +2,7 @@ package vo;
 
 public class Pergunta {
 	private int idPergunta;
+	private String titulo;
 	private String conteudoPergunta;
 	private Categoria categoriaPergunta;
 	private Usuario usuarioPergunta;
@@ -15,32 +16,50 @@ public class Pergunta {
 		this.setUsuarioPergunta(usuarioPergunta);
 	}
 
-	public void setIdPergunta(int idPergunta) {
+	public Pergunta setIdPergunta(int idPergunta) {
 		this.idPergunta = idPergunta;
+
+		return this;
 	}
 	
 	public int getIdPergunta() {
 		return idPergunta;
 	}
+
+	public Pergunta setTitulo(String titulo){
+		this.titulo = titulo;
+
+		return this;
+	}
+
+	public String getTitulo(){
+		return this.titulo;
+	}
 	
-	public void setConteudoPergunta(String conteudoPergunta) {
+	public Pergunta setConteudoPergunta(String conteudoPergunta) {
 		this.conteudoPergunta = conteudoPergunta;
+
+		return this;
 	}
 	
 	public String getConteudoPergunta() {
 		return conteudoPergunta;
 	}
 	
-	public void setCategoriaPergunta(Categoria categoriaPergunta) {
+	public Pergunta setCategoriaPergunta(Categoria categoriaPergunta) {
 		this.categoriaPergunta = categoriaPergunta;
+
+		return this;
 	}
 	
 	public Categoria getCategoriaPergunta() {
 		return categoriaPergunta;
 	}
 	
-	public void setUsuarioPergunta(Usuario usuarioPergunta) {
+	public Pergunta setUsuarioPergunta(Usuario usuarioPergunta) {
 		this.usuarioPergunta = usuarioPergunta;
+
+		return this;
 	}
 	
 	public Usuario getUsuarioPergunta() {

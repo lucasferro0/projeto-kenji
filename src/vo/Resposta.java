@@ -16,32 +16,40 @@ public class Resposta {
 		this.setUsuarioResposta(usuarioResposta);
 	}
 
-	public void setIdResposta(int idResposta) {
+	public Resposta setIdResposta(int idResposta) {
 		this.idResposta = idResposta;
+
+		return this;
 	}
 	
 	public int getIdResposta() {
 		return idResposta;
 	}
 	
-	public void setConteudoResposta(String conteudoResposta) {
+	public Resposta setConteudoResposta(String conteudoResposta) {
 		this.conteudoResposta = conteudoResposta;
+
+		return this;
 	}
 	
 	public String getConteudoResposta() {
 		return conteudoResposta;
 	}
 	
-	public void setPerguntaResposta(Pergunta perguntaResposta) {
+	public Resposta setPerguntaResposta(Pergunta perguntaResposta) {
 		this.perguntaResposta = perguntaResposta;
+
+		return this;
 	}
 	
 	public Pergunta getPerguntaResposta() {
 		return perguntaResposta;
 	}
 	
-	public void setUsuarioResposta(Usuario usuarioResposta) {
+	public Resposta setUsuarioResposta(Usuario usuarioResposta) {
 		this.usuarioResposta = usuarioResposta;
+
+		return this;
 	}
 	
 	public Usuario getUsuarioResposta() {
