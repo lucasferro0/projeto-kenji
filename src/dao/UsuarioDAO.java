@@ -20,7 +20,7 @@ public class UsuarioDAO {
 		String sql = "INSERT INTO tbl_usuario(username, email, senha, linkedin, github, biografia) VALUES(?,?,?,?,?,?)";
 		
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			stmt.setString(1, usuario.getUsername());
 			stmt.setString(2, usuario.getEmail());
 			stmt.setString(3, usuario.getSenha());
@@ -29,17 +29,22 @@ public class UsuarioDAO {
 			stmt.setString(6, usuario.getBiografia());
 			stmt.execute();
 			return true;
-		} catch (SQLException ex) {
-			//tratar exceção
-			return false;		
-		}
+		}catch(SQLException e){
+            System.out.println("SQLException in file UsuarioDAO: " + e.getMessage());
+
+            return false;
+        }catch(Exception e){
+            System.out.println("Exception in file UsuarioDAO: " + e.getMessage());
+
+            return false;
+        }
 		
 	}
 	
 	public boolean update(Usuario usuario) {
 		String sql = "UPDATE tbl_usuario SET username=?, email=?, senha=?, linkedin=?, github=?, biografia=? WHERE cod_usuario=?";
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			stmt.setString(1, usuario.getUsername());
 			stmt.setString(2, usuario.getEmail());
 			stmt.setString(3, usuario.getSenha());
@@ -49,30 +54,40 @@ public class UsuarioDAO {
 			stmt.setInt(7, usuario.getIdUsuario());
 			stmt.execute();
 			return true;
-		} catch (SQLException ex) {
-			//tratar exceção
-			return false;
-		}
+		}catch(SQLException e){
+            System.out.println("SQLException in file UsuarioDAO: " + e.getMessage());
+
+            return false;
+        }catch(Exception e){
+            System.out.println("Exception in file UsuarioDAO: " + e.getMessage());
+
+            return false;
+        }
 	}
 	
 	public boolean delete(Integer id) {
 		String sql = "DELETE FROM tbl_usuario WHERE cod_usuario=?";
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			stmt.setInt(1, id);
 			stmt.execute();
 			return true;
-		} catch (SQLException ex) {
-			//tratar exceção
-			return false;
-		}
+		}catch(SQLException e){
+            System.out.println("SQLException in file UsuarioDAO: " + e.getMessage());
+
+            return false;
+        }catch(Exception e){
+            System.out.println("Exception in file UsuarioDAO: " + e.getMessage());
+
+            return false;
+        }
 	}
 	
 	public Usuario findById(Integer id) {
 		String sql = "SELECT * FROM tbl_usuario WHERE cod_usuario=?";
 		Usuario usuario = new Usuario();
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet resultado = stmt.executeQuery();
 			
@@ -83,9 +98,15 @@ public class UsuarioDAO {
 			usuario.setLinkedin(resultado.getString("linkedin"));
 			usuario.setGithub(resultado.getString("github"));	
 			usuario.setBiografia(resultado.getString("biografia"));
-		} catch(Exception ex) {
-			//tratar exceção
-		}
+		}catch(SQLException e){
+            System.out.println("SQLException in file UsuarioDAO: " + e.getMessage());
+
+            return null;
+        }catch(Exception e){
+            System.out.println("Exception in file UsuarioDAO: " + e.getMessage());
+
+            return null;
+        }
 		return usuario;
 	}
 	
@@ -93,11 +114,11 @@ public class UsuarioDAO {
 		String sql = "SELECT * FROM tbl_usuario WHERE username LIKE '%?%' OR email LIKE '%?%' OR linkedin LIKE '%?%' OR github LIKE '%?%'";
 		List<Usuario> retorno = new ArrayList<>();
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			stmt.setString(1, str);
-			stmt.setString(2,str);
-			stmt.setString(3,str);
-			stmt.setString(4,str);
+			stmt.setString(2, str);
+			stmt.setString(3, str);
+			stmt.setString(4, str);
 			ResultSet resultado = stmt.executeQuery();
 			while(resultado.next()) {
 				Usuario usuario = new Usuario();
@@ -111,9 +132,14 @@ public class UsuarioDAO {
 				retorno.add(usuario);
 			}
 			
-		} catch (SQLException ex) {
-			//tratar exceção
-		}
+		}catch(SQLException e){
+            System.out.println("SQLException in file UsuarioDAO: " + e.getMessage());
+
+        }catch(Exception e){
+            System.out.println("Exception in file UsuarioDAO: " + e.getMessage());
+
+        }
+
 		return retorno;
 	}
 	
@@ -121,7 +147,7 @@ public class UsuarioDAO {
 		String sql = "SELECT * FROM tbl_usuario";
 		List<Usuario> retorno = new ArrayList<>();
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			ResultSet resultado = stmt.executeQuery();
 			while(resultado.next()) {
 				Usuario usuario = new Usuario();
@@ -135,9 +161,14 @@ public class UsuarioDAO {
 				retorno.add(usuario);
 			}
 			
-		} catch (SQLException ex) {
-			// tratar exceção
-		}
+		}catch(SQLException e){
+            System.out.println("SQLException in file UsuarioDAO: " + e.getMessage());
+
+        }catch(Exception e){
+            System.out.println("Exception in file UsuarioDAO: " + e.getMessage());
+			
+        }
+
 		return retorno;
 	}
 }

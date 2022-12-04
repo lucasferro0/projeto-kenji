@@ -19,6 +19,7 @@ CREATE TABLE tbl_categoria(
 
 CREATE TABLE tbl_pergunta(
 	cod_pergunta int PRIMARY KEY AUTO_INCREMENT,
+    titulo varchar(255),
     dsc_pergunta varchar(500),
     cod_usuario int,
     cod_categoria int,

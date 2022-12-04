@@ -2,12 +2,12 @@ package vo;
 
 public class Usuario {
 	private int idUsuario;
-	private String username;
-	private String email;
-	private String senha;
-	private String biografia;
-	private String linkedin;
-	private String github;
+	private String username = null;
+	private String email = null;
+	private String senha = null;
+	private String biografia = null;
+	private String linkedin = null;
+	private String github = null;
 	
 	public Usuario() {
 		
@@ -19,60 +19,74 @@ public class Usuario {
 		this.setSenha(senha);
 	}
 
-	public void setIdUsuario(int idUsuario) {
+	public Usuario setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
+
+		return this;
 	}
 	
 	public int getIdUsuario() {
-		return idUsuario;
+		return this.idUsuario;
 	}
 	
-	public void setUsername(String username) {
+	public Usuario setUsername(String username) {
 		this.username = username;
+
+		return this;
 	}
 	
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 	
-	public void setEmail(String email) {
+	public Usuario setEmail(String email) {
 		this.email = email;
+
+		return this;
 	}
 	
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 	
-	public void setSenha(String senha) {
+	public Usuario setSenha(String senha) {
 		this.senha = senha;
+
+		return this;
 	}
 	
 	public String getSenha() {
-		return senha;
+		return this.senha;
 	}
 	
-	public void setBiografia(String biografia) {
+	public Usuario setBiografia(String biografia) {
 		this.biografia = biografia;
+
+		return this;
 	}
 	
 	public String getBiografia() {
-		return biografia;
+		return this.biografia;
 	}
 	
-	public void setLinkedin(String linkedin) {
+	public Usuario setLinkedin(String linkedin) {
 		this.linkedin = linkedin;
+
+		return this;
 	}
 	
 	public String getLinkedin() {
-		return linkedin;
+		return this.linkedin;
 	}
 	
-	public void setGithub(String github) {
+	public Usuario setGithub(String github) {
 		this.github = github;
+
+		return this;
 	}
 	
 	public String getGithub() {
-		return github;
+		return this.github;
 	}
 
 
