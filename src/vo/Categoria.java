@@ -12,11 +12,11 @@ public class Categoria {
 		this.setCategoria(categoria);
 	}
 
-	public void setIdCategoria(long idCategoria) {
+	public void setIdCategoria(int idCategoria) {
 		this.idCategoria = idCategoria;
 	}
 	
-	public long getIdCategoria() {
+	public int getIdCategoria() {
 		return idCategoria;
 	}
 	

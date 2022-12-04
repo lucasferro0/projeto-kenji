@@ -45,7 +45,7 @@ public class Usuario
         try{
             ConexaoMySQL conMySql = new ConexaoMySQL();
 
-            Connection con = conMySql.getConexaoMySQL();
+            Connection con = conMySql.getCon();
 
             String sql = "INSERT INTO usuarios (nome, login, senha) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
@@ -81,7 +81,7 @@ public class Usuario
         try{
             ConexaoMySQL conMySql = new ConexaoMySQL();
 
-            Connection con = conMySql.getConexaoMySQL();
+            Connection con = conMySql.getCon();
 
             String sql = "UPDATE usuarios SET usu_nome=IFNULL(?, usu_nome), usu_login=IFNULL(?, usu_login), senha=IFNULL(?, usu_senha) WHERE usu_codigo=?";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
@@ -117,7 +117,7 @@ public class Usuario
         try{
             ConexaoMySQL conMySql = new ConexaoMySQL();
 
-            Connection con = conMySql.getConexaoMySQL();
+            Connection con = conMySql.getCon();
 
             PreparedStatement preparedStatement = con.prepareStatement(
                 "SELECT * FROM usuarios"

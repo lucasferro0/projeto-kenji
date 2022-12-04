@@ -1,6 +1,6 @@
-CREATE DATABASE bd_developmenthelp;
+CREATE DATABASE forum;
 
-USE bd_developmenthelp;
+USE forum;
 
 CREATE TABLE tbl_usuario(
 	cod_usuario int PRIMARY KEY AUTO_INCREMENT,

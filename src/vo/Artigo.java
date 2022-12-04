@@ -17,11 +17,11 @@ public class Artigo {
 		this.setUsuarioArtigo(usuarioArtigo);
 	}
 	
-	public long getIdArtigo() {
+	public int getIdArtigo() {
 		return idArtigo;
 	}
 
-	public void setIdArtigo(long idArtigo) {
+	public void setIdArtigo(int idArtigo) {
 		this.idArtigo = idArtigo;
 	}
 

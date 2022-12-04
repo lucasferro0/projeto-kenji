@@ -19,7 +19,7 @@ public class UsuarioBO {
         try{
             ConexaoMySQL conMySQL = new ConexaoMySQL();
 
-            Connection con = conMySQL.getConexaoMySQL();
+            Connection con = conMySQL.getCon();
             UsuarioDAO usuarioDAO = new UsuarioDAO(con);
 
             List<Usuario> usuarios =  usuarioDAO.listAll();
@@ -56,7 +56,7 @@ public class UsuarioBO {
                 throw new Required("O email é obrigatório.");
             }
 
-            ConexaoMySQL conMySQL = new ConexaoMySQL();
+            ConexaoMySQL connector = new ConexaoMySQL();
 
             Crypt crypt = new Crypt();
 		    String senhaHashed = crypt.codificar(senha);
@@ -66,16 +66,16 @@ public class UsuarioBO {
             .setSenha(senhaHashed)
             .setEmail(email);
 
-            Connection con = conMySQL.getConexaoMySQL();
+            Connection con = connector.getCon(); // Abre a conexão
             UsuarioDAO usuarioDAO = new UsuarioDAO(con);
 
-            con.setAutoCommit(false);
+            connector.beginTransaction();
 
             usuarioDAO.insert(this.usuario);
 
-            con.commit();
+            connector.commit();
 
-            con.close();
+            connector.fechar(); // Fecha a conexão
 
             System.out.println("Usuário cadastrado com sucesso.");
 
@@ -95,18 +95,18 @@ public class UsuarioBO {
                 throw new InvalidArgument("Id fornecido inválido.");
             }
 
-            ConexaoMySQL conMySQL = new ConexaoMySQL();
+            ConexaoMySQL connector = new ConexaoMySQL();
 
-            Connection con = conMySQL.getConexaoMySQL();
+            Connection con = connector.getCon(); // Abre a conexão
             UsuarioDAO usuarioDAO = new UsuarioDAO(con);
 
-            con.setAutoCommit(false);
+            connector.beginTransaction();
 
             usuarioDAO.delete(id);
 
-            con.commit();
+            connector.commit();
 
-            con.close();
+            connector.fechar(); // Fecha a conexão
 
             System.out.println("Usuário deletado com sucesso.");
 

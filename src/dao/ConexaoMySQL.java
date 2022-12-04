@@ -7,7 +7,7 @@ import java.sql.SQLException;
 //Início da classe de conexão//
 public class ConexaoMySQL
 {
-    private Connection connection = null;
+    public Connection connection = null;
     public boolean status = false;
  
     //Método Construtor da Classe//
@@ -16,7 +16,7 @@ public class ConexaoMySQL
     }
 
     //Método de Conexão//
-    public java.sql.Connection getConexaoMySQL()
+    public java.sql.Connection getCon()
     {
         try{
             // Carregando o JDBC Driver padrão
@@ -25,10 +25,10 @@ public class ConexaoMySQL
 
             // Configurando a nossa conexão com um banco de dados//
             String serverName = "localhost"; //caminho do servidor do BD
-            String mydatabase ="bd_developmenthelp"; //nome do seu banco de dados
+            String mydatabase ="forum"; //nome do seu banco de dados
             String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
-            String username = "root"; //nome de um usuário de seu BD
-            String password = "123456"; //sua senha de acesso
+            String username = "admin"; //nome de um usuário de seu BD
+            String password = ""; //sua senha de acesso
 
             this.connection = DriverManager.getConnection(url, username, password);
             
@@ -51,19 +51,23 @@ public class ConexaoMySQL
     }
 
     //Método que retorna o status da sua conexão//
-    public boolean statusConexao()
+    public boolean status()
     {
         return this.status;
     }
 
     //Método que fecha sua conexão//
-    public boolean fecharConexao()
+    public boolean fechar()
     {
         try{
             this.connection.close();
 
+            this.status = false;
+
             return true;
         }catch(SQLException e){
+            this.status = true;
+
             return false;
         }
     }
@@ -71,8 +75,26 @@ public class ConexaoMySQL
     //Método que reinicia sua conexão//
     public java.sql.Connection reiniciarConexao()
     {
-        this.fecharConexao();
+        this.fechar();
 
-        return this.getConexaoMySQL();
+        return this.getCon();
+    }
+
+    public void beginTransaction()
+    {
+        try{
+            this.connection.setAutoCommit(false);
+        }catch(SQLException e){
+            System.out.println("Nao foi possivel iniciar a transação no banco de dados.");
+        }
+    }
+
+    public void commit()
+    {
+        try{
+            this.connection.commit();
+        }catch(SQLException e){
+            System.out.println("Nao foi possivel realizar commit da transação no banco de dados.");
+        }
     }
 }

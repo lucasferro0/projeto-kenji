@@ -21,7 +21,7 @@ public abstract class Model
     {
         ConexaoMySQL conMySql = new ConexaoMySQL();
 
-        Connection con = conMySql.getConexaoMySQL();
+        Connection con = conMySql.getCon();
 
         try{
             Statement statement = con.createStatement();
@@ -79,7 +79,7 @@ public abstract class Model
 
         ConexaoMySQL conMySql = new ConexaoMySQL();
 
-        Connection con = conMySql.getConexaoMySQL();
+        Connection con = conMySql.getCon();
 
         try{
             String nameColumns = "";
