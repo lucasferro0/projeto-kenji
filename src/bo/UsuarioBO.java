@@ -44,11 +44,11 @@ public class UsuarioBO {
     {
         try{
             if (usuario.getUsername() == null){
-                throw new Required("O username é obrigatório.");
+                throw new ValidationException("O username é obrigatório.");
             }else if(usuario.getSenha() == null){
-                throw new Required("A senha é obrigatória.");
+                throw new ValidationException("A senha é obrigatória.");
             }else if (usuario.getEmail() == null){
-                throw new Required("O email é obrigatório.");
+                throw new ValidationException("O email é obrigatório.");
             }
 
             ConexaoMySQL connector = new ConexaoMySQL();
@@ -89,7 +89,7 @@ public class UsuarioBO {
         try{
             
             if (id <= 0){
-                throw new InvalidArgument("Id fornecido inválido.");
+                throw new InvalidArgumentException("Id fornecido inválido.");
             }
 
             ConexaoMySQL connector = new ConexaoMySQL();
@@ -99,7 +99,7 @@ public class UsuarioBO {
 
             Usuario usuario = usuarioDAO.findById(id);
             if (usuario == null){
-                throw new InvalidArgument("Erro ao deletar usuário.");
+                throw new InvalidArgumentException("Erro ao deletar usuário.");
             }
 
             connector.beginTransaction();

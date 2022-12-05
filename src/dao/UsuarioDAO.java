@@ -92,7 +92,7 @@ public class UsuarioDAO {
 			ResultSet resultado = stmt.executeQuery();
 			
 			if (!resultado.next()){ // Quando não achar o registro
-				throw new NotFound("Registro não encontrado.");
+				throw new NotFoundException("Registro não encontrado.");
 			}
 
 			usuario.setIdUsuario(resultado.getInt("cod_usuario"));

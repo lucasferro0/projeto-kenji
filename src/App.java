@@ -8,7 +8,7 @@ public class App {
 
         conector.getCon();
 
-        Usuario usuario = new Usuario("asdasd", "sadsdasd", "asdasd");
+        Usuario usuario = new Usuario(null, "sadsdasd", "asdasd");
         
         UsuarioBO usuarioBO = new UsuarioBO();
         Boolean wasRight = usuarioBO.salvar(usuario);
