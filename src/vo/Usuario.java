@@ -8,6 +8,10 @@ public class Usuario {
 	private String biografia = null;
 	private String linkedin = null;
 	private String github = null;
+
+	public Usuario(){
+
+	}
 	
 	public Usuario (String username, String email, String senha) {
 		this.setUsername(username);
