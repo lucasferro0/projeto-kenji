@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import errors.*;
 import vo.Usuario;
 
 public class UsuarioDAO {
@@ -30,11 +30,11 @@ public class UsuarioDAO {
 			stmt.execute();
 			return true;
 		}catch(SQLException e){
-            System.out.println("SQLException in file UsuarioDAO: " + e.getMessage());
+            System.out.println("SQLException in file UsuarioDAO, function insert() - " + e.getMessage());
 
             return false;
         }catch(Exception e){
-            System.out.println("Exception in file UsuarioDAO: " + e.getMessage());
+            System.out.println("Exception in file UsuarioDAO, function insert() - " + e.getMessage());
 
             return false;
         }
@@ -55,11 +55,11 @@ public class UsuarioDAO {
 			stmt.execute();
 			return true;
 		}catch(SQLException e){
-            System.out.println("SQLException in file UsuarioDAO: " + e.getMessage());
+            System.out.println("SQLException in file UsuarioDAO, function update() - " + e.getMessage());
 
             return false;
         }catch(Exception e){
-            System.out.println("Exception in file UsuarioDAO: " + e.getMessage());
+            System.out.println("Exception in file UsuarioDAO, function update() - " + e.getMessage());
 
             return false;
         }
@@ -73,11 +73,11 @@ public class UsuarioDAO {
 			stmt.execute();
 			return true;
 		}catch(SQLException e){
-            System.out.println("SQLException in file UsuarioDAO: " + e.getMessage());
+            System.out.println("SQLException in file UsuarioDAO, function delete() - " + e.getMessage());
 
             return false;
         }catch(Exception e){
-            System.out.println("Exception in file UsuarioDAO: " + e.getMessage());
+            System.out.println("Exception in file UsuarioDAO, function delete() - " + e.getMessage());
 
             return false;
         }
@@ -91,6 +91,10 @@ public class UsuarioDAO {
 			stmt.setInt(1, id);
 			ResultSet resultado = stmt.executeQuery();
 			
+			if (!resultado.next()){ // Quando não achar o registro
+				throw new NotFound("Registro não encontrado.");
+			}
+
 			usuario.setIdUsuario(resultado.getInt("cod_usuario"));
 			usuario.setUsername(resultado.getString("username"));
 			usuario.setEmail(resultado.getString("email"));
@@ -98,16 +102,17 @@ public class UsuarioDAO {
 			usuario.setLinkedin(resultado.getString("linkedin"));
 			usuario.setGithub(resultado.getString("github"));	
 			usuario.setBiografia(resultado.getString("biografia"));
+
+			return usuario;
 		}catch(SQLException e){
-            System.out.println("SQLException in file UsuarioDAO: " + e.getMessage());
+            System.out.println("SQLException in file UsuarioDAO, function findById() - " + e.getMessage());
 
             return null;
         }catch(Exception e){
-            System.out.println("Exception in file UsuarioDAO: " + e.getMessage());
+            System.out.println("Exception in file UsuarioDAO, functin findById() - " + e.getMessage());
 
             return null;
         }
-		return usuario;
 	}
 	
 	public List<Usuario> findFilter(String str){
@@ -133,10 +138,10 @@ public class UsuarioDAO {
 			}
 			
 		}catch(SQLException e){
-            System.out.println("SQLException in file UsuarioDAO: " + e.getMessage());
+            System.out.println("SQLException in file UsuarioDAO, function findFilter() - " + e.getMessage());
 
         }catch(Exception e){
-            System.out.println("Exception in file UsuarioDAO: " + e.getMessage());
+            System.out.println("Exception in file UsuarioDAO, function findFilter() - " + e.getMessage());
 
         }
 
@@ -162,10 +167,10 @@ public class UsuarioDAO {
 			}
 			
 		}catch(SQLException e){
-            System.out.println("SQLException in file UsuarioDAO: " + e.getMessage());
+            System.out.println("SQLException in file UsuarioDAO, function listAll() - " + e.getMessage());
 
         }catch(Exception e){
-            System.out.println("Exception in file UsuarioDAO: " + e.getMessage());
+            System.out.println("Exception in file UsuarioDAO, function listAll() - " + e.getMessage());
 			
         }
 

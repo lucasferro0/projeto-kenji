@@ -5,6 +5,7 @@ import dao.UsuarioDAO;
 import dao.ConexaoMySQL;
 import helpers.Crypt;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import errors.*;
 public class UsuarioBO {
@@ -14,7 +15,7 @@ public class UsuarioBO {
         this.usuario = new Usuario();
 	}
 
-    public Boolean index()
+    public Boolean mostrar()
     {
         try{
             ConexaoMySQL conMySQL = new ConexaoMySQL();
@@ -28,11 +29,11 @@ public class UsuarioBO {
 
             int cont = 1;
             for (Usuario usuario : usuarios) {
-                System.out.println("USUÁRIO " + cont);
+                System.out.println("USUÁRIO " + cont + "\n");
                 System.out.println("Login: " + usuario.getUsername());
-                System.out.println("Senha " + usuario.getSenha());
-                System.out.println("E-mail " + usuario.getEmail());
-                System.out.println("\n\n");
+                System.out.println("Senha: " + usuario.getSenha());
+                System.out.println("E-mail: " + usuario.getEmail());
+                System.out.println("\n");
 
                 cont+=1;
             }
@@ -45,7 +46,7 @@ public class UsuarioBO {
         }
     }
 
-    public Boolean store(String username, String senha, String email)
+    public Boolean salvar(String username, String senha, String email)
     {
         try{
             if (username == null){
@@ -71,7 +72,13 @@ public class UsuarioBO {
 
             connector.beginTransaction();
 
-            usuarioDAO.insert(this.usuario);
+            Boolean wasInserted = usuarioDAO.insert(this.usuario);
+
+            if (! wasInserted){
+                connector.fechar();
+
+                return false;
+            }
 
             connector.commit();
 
@@ -81,13 +88,13 @@ public class UsuarioBO {
 
             return true;
         }catch(Exception e){
-            System.out.println("Exception in file UsuarioBO: " + e.getMessage());
+            System.out.println("Exception in file UsuarioBO, function store() - " + e.getMessage());
 
             return false;
         }
     }
 
-    public Boolean destroy(int id)
+    public Boolean deletar(int id)
     {
         try{
             
@@ -99,6 +106,11 @@ public class UsuarioBO {
 
             Connection con = connector.getCon(); // Abre a conexão
             UsuarioDAO usuarioDAO = new UsuarioDAO(con);
+
+            usuario = usuarioDAO.findById(id);
+            if (usuario == null){
+                throw new InvalidArgument("Erro ao deletar usuário.");
+            }
 
             connector.beginTransaction();
 
@@ -112,7 +124,7 @@ public class UsuarioBO {
 
             return true;
         }catch(Exception e){
-            System.out.println("Exception in file UsuarioBO: " + e.getMessage());
+            System.out.println("Exception in file UsuarioBO, function destroy() - " + e.getMessage());
 
             return false;
         }

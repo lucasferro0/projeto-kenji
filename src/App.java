@@ -1,4 +1,5 @@
 import dao.ConexaoMySQL;
+import bo.UsuarioBO;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -6,8 +7,10 @@ public class App {
 
         conector.getCon();
 
-        System.out.println(conector.fechar());
+        UsuarioBO usuarioBO = new UsuarioBO();
 
-        System.out.println(conector.connection == null);
+        Boolean wasRight = usuarioBO.deletar(5);
+
+        System.out.println(wasRight);
     }
 }
