@@ -9,12 +9,6 @@ import java.sql.SQLException;
 import java.util.List;
 import errors.*;
 public class UsuarioBO {
-    private Usuario usuario;
-
-    public UsuarioBO() {
-        this.usuario = new Usuario();
-	}
-
     public Boolean mostrar()
     {
         try{
@@ -46,33 +40,29 @@ public class UsuarioBO {
         }
     }
 
-    public Boolean salvar(String username, String senha, String email)
+    public Boolean salvar(Usuario usuario)
     {
         try{
-            if (username == null){
+            if (usuario.getUsername() == null){
                 throw new Required("O username é obrigatório.");
-            }else if(senha == null){
+            }else if(usuario.getSenha() == null){
                 throw new Required("A senha é obrigatória.");
-            }else if (email == null){
+            }else if (usuario.getEmail() == null){
                 throw new Required("O email é obrigatório.");
             }
 
             ConexaoMySQL connector = new ConexaoMySQL();
 
             Crypt crypt = new Crypt();
-		    String senhaHashed = crypt.codificar(senha);
-
-            this.usuario
-            .setUsername(username)
-            .setSenha(senhaHashed)
-            .setEmail(email);
+		    String senhaHashed = crypt.codificar(usuario.getSenha());
+            usuario.setSenha(senhaHashed);
 
             Connection con = connector.getCon(); // Abre a conexão
             UsuarioDAO usuarioDAO = new UsuarioDAO(con);
 
             connector.beginTransaction();
 
-            Boolean wasInserted = usuarioDAO.insert(this.usuario);
+            Boolean wasInserted = usuarioDAO.insert(usuario);
 
             if (! wasInserted){
                 connector.fechar();
@@ -107,7 +97,7 @@ public class UsuarioBO {
             Connection con = connector.getCon(); // Abre a conexão
             UsuarioDAO usuarioDAO = new UsuarioDAO(con);
 
-            usuario = usuarioDAO.findById(id);
+            Usuario usuario = usuarioDAO.findById(id);
             if (usuario == null){
                 throw new InvalidArgument("Erro ao deletar usuário.");
             }

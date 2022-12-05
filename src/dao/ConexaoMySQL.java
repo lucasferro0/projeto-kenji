@@ -7,7 +7,7 @@ import java.sql.SQLException;
 //Início da classe de conexão//
 public class ConexaoMySQL
 {
-    public Connection connection = null;
+    private Connection connection = null;
     public boolean status = false;
  
     //Método Construtor da Classe//

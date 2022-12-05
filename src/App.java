@@ -1,4 +1,5 @@
 import dao.ConexaoMySQL;
+import vo.Usuario;
 import bo.UsuarioBO;
 
 public class App {
@@ -7,9 +8,10 @@ public class App {
 
         conector.getCon();
 
+        Usuario usuario = new Usuario("asdasd", "sadsdasd", "asdasd");
+        
         UsuarioBO usuarioBO = new UsuarioBO();
-
-        Boolean wasRight = usuarioBO.deletar(5);
+        Boolean wasRight = usuarioBO.salvar(usuario);
 
         System.out.println(wasRight);
     }
