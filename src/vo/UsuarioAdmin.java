@@ -2,8 +2,8 @@ package vo;
 
 import vo.interfaces.UsuarioInterface;
 
-public class Usuario implements UsuarioInterface {
-	private int isAdmin = 0; // 0 ou 1
+public class UsuarioAdmin implements UsuarioInterface{
+    private int isAdmin = 1; // 0 ou 1
 	private int idUsuario;
 	private String username = null;
 	private String email = null;
@@ -12,21 +12,21 @@ public class Usuario implements UsuarioInterface {
 	private String linkedin = null;
 	private String github = null;
 
-	public Usuario(){
+	public UsuarioAdmin(){
 
 	}
 	
-	public Usuario (String username, String email, String senha) {
+	public UsuarioAdmin (String username, String email, String senha) {
 		this.setUsername(username);
 		this.setEmail(email);
 		this.setSenha(senha);
 	}
-
+	
 	public int getIsAdmin() {
 		return this.isAdmin;
 	}
 
-	public Usuario setIdUsuario(int idUsuario) {
+	public UsuarioAdmin setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
 
 		return this;
@@ -36,7 +36,7 @@ public class Usuario implements UsuarioInterface {
 		return this.idUsuario;
 	}
 	
-	public Usuario setUsername(String username) {
+	public UsuarioAdmin setUsername(String username) {
 		this.username = username;
 
 		return this;
@@ -46,7 +46,7 @@ public class Usuario implements UsuarioInterface {
 		return this.username;
 	}
 	
-	public Usuario setEmail(String email) {
+	public UsuarioAdmin setEmail(String email) {
 		this.email = email;
 
 		return this;
@@ -56,7 +56,7 @@ public class Usuario implements UsuarioInterface {
 		return this.email;
 	}
 	
-	public Usuario setSenha(String senha) {
+	public UsuarioAdmin setSenha(String senha) {
 		this.senha = senha;
 
 		return this;
@@ -66,7 +66,7 @@ public class Usuario implements UsuarioInterface {
 		return this.senha;
 	}
 	
-	public Usuario setBiografia(String biografia) {
+	public UsuarioAdmin setBiografia(String biografia) {
 		this.biografia = biografia;
 
 		return this;
@@ -76,7 +76,7 @@ public class Usuario implements UsuarioInterface {
 		return this.biografia;
 	}
 	
-	public Usuario setLinkedin(String linkedin) {
+	public UsuarioAdmin setLinkedin(String linkedin) {
 		this.linkedin = linkedin;
 
 		return this;
@@ -86,7 +86,7 @@ public class Usuario implements UsuarioInterface {
 		return this.linkedin;
 	}
 	
-	public Usuario setGithub(String github) {
+	public UsuarioAdmin setGithub(String github) {
 		this.github = github;
 
 		return this;
@@ -95,6 +95,4 @@ public class Usuario implements UsuarioInterface {
 	public String getGithub() {
 		return this.github;
 	}
-
-
 }

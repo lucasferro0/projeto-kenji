@@ -4,7 +4,6 @@ public class Pergunta {
 	private int idPergunta;
 	private String titulo;
 	private String conteudoPergunta;
-	private Categoria categoriaPergunta;
 	private Usuario usuarioPergunta;
 	
 	public Pergunta() {
@@ -44,16 +43,6 @@ public class Pergunta {
 	
 	public String getConteudoPergunta() {
 		return conteudoPergunta;
-	}
-	
-	public Pergunta setCategoriaPergunta(Categoria categoriaPergunta) {
-		this.categoriaPergunta = categoriaPergunta;
-
-		return this;
-	}
-	
-	public Categoria getCategoriaPergunta() {
-		return categoriaPergunta;
 	}
 	
 	public Pergunta setUsuarioPergunta(Usuario usuarioPergunta) {

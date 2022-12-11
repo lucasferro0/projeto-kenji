@@ -5,21 +5,20 @@ import dao.UsuarioDAO;
 import dao.ConexaoMySQL;
 import helpers.Crypt;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 import errors.*;
 public class UsuarioBO {
     public Boolean mostrar()
     {
         try{
-            ConexaoMySQL conMySQL = new ConexaoMySQL();
+            ConexaoMySQL conector = new ConexaoMySQL();
 
-            Connection con = conMySQL.getCon();
+            Connection con = conector.getCon();
             UsuarioDAO usuarioDAO = new UsuarioDAO(con);
 
             List<Usuario> usuarios =  usuarioDAO.listAll();
 
-            con.close();
+            conector.fechar();
 
             int cont = 1;
             for (Usuario usuario : usuarios) {

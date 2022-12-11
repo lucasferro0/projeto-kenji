@@ -55,6 +55,4 @@ public class Resposta {
 	public Usuario getUsuarioResposta() {
 		return usuarioResposta;
 	}
-
-	
 }

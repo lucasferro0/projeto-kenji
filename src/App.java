@@ -8,7 +8,11 @@ public class App {
 
         conector.getCon();
 
-        Usuario usuario = new Usuario(null, "sadsdasd", "asdasd");
+        Usuario usuario = new Usuario();
+        usuario
+        .setUsername("teste")
+        .setEmail("teste@gmail.com")
+        .setSenha("sasdas");
         
         UsuarioBO usuarioBO = new UsuarioBO();
         Boolean wasRight = usuarioBO.salvar(usuario);
