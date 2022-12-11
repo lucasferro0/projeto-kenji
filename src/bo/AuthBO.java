@@ -18,11 +18,11 @@ public class AuthBO {
             Connection con = conector.getCon();
             UsuarioDAO usuarioDAO = new UsuarioDAO(con);
 
-            List<Usuario> usuarios =  usuarioDAO.listAll();
+            List<UsuarioInterface> usuarios =  usuarioDAO.listAll();
 
             conector.fechar();
 
-            for (Usuario user : usuarios) {
+            for (UsuarioInterface user : usuarios) {
                 if (user.getUsername() == usuario.getUsername() && user.getSenha() == usuario.getSenha()){
                     System.out.println("Login efetuado com sucesso.");
 

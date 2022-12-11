@@ -1,6 +1,7 @@
 package bo;
 
 import vo.Usuario;
+import vo.interfaces.UsuarioInterface;
 import dao.UsuarioDAO;
 import dao.ConexaoMySQL;
 import helpers.Crypt;
@@ -16,12 +17,12 @@ public class UsuarioBO {
             Connection con = conector.getCon();
             UsuarioDAO usuarioDAO = new UsuarioDAO(con);
 
-            List<Usuario> usuarios =  usuarioDAO.listAll();
+            List<UsuarioInterface> usuarios =  usuarioDAO.listAll();
 
             conector.fechar();
 
             int cont = 1;
-            for (Usuario usuario : usuarios) {
+            for (UsuarioInterface usuario : usuarios) {
                 System.out.println("USUÁRIO " + cont + "\n");
                 System.out.println("Login: " + usuario.getUsername());
                 System.out.println("Senha: " + usuario.getSenha());
@@ -96,7 +97,7 @@ public class UsuarioBO {
             Connection con = connector.getCon(); // Abre a conexão
             UsuarioDAO usuarioDAO = new UsuarioDAO(con);
 
-            Usuario usuario = usuarioDAO.findById(id);
+            UsuarioInterface usuario = usuarioDAO.findById(id);
             if (usuario == null){
                 throw new InvalidArgumentException("Erro ao deletar usuário.");
             }
