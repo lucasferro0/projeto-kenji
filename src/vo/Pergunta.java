@@ -4,7 +4,7 @@ public class Pergunta {
 	private int idPergunta;
 	private String titulo;
 	private String conteudoPergunta;
-	private Usuario usuarioPergunta;
+	private int idUsuario;
 	
 	public Pergunta() {
 		
@@ -12,7 +12,6 @@ public class Pergunta {
 	
 	public Pergunta(String conteudoPergunta, Usuario usuarioPergunta) {
 		this.setConteudoPergunta(conteudoPergunta);
-		this.setUsuarioPergunta(usuarioPergunta);
 	}
 
 	public Pergunta setIdPergunta(int idPergunta) {
@@ -45,13 +44,13 @@ public class Pergunta {
 		return conteudoPergunta;
 	}
 	
-	public Pergunta setUsuarioPergunta(Usuario usuarioPergunta) {
-		this.usuarioPergunta = usuarioPergunta;
+	public Pergunta setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 
 		return this;
 	}
 	
-	public Usuario getUsuarioPergunta() {
-		return usuarioPergunta;
+	public int getIdUsuario() {
+		return idUsuario;
 	}
 }

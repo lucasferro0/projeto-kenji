@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import errors.*;
 import vo.Usuario;
+import vo.interfaces.UsuarioInterface;
 
 public class UsuarioDAO {
 	private Connection connection;
@@ -16,7 +17,7 @@ public class UsuarioDAO {
 		this.connection = connection;
 	}
 	
-	public boolean insert(Usuario usuario) {
+	public boolean insert(UsuarioInterface usuario) {
 		String sql = "INSERT INTO tbl_usuario(username, email, senha, linkedin, github, biografia) VALUES(?,?,?,?,?,?)";
 		
 		try {
@@ -41,7 +42,7 @@ public class UsuarioDAO {
 		
 	}
 	
-	public boolean update(Usuario usuario) {
+	public boolean update(UsuarioInterface usuario) {
 		String sql = "UPDATE tbl_usuario SET username=?, email=?, senha=?, linkedin=?, github=?, biografia=? WHERE cod_usuario=?";
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
@@ -83,9 +84,9 @@ public class UsuarioDAO {
         }
 	}
 	
-	public Usuario findById(Integer id) {
+	public UsuarioInterface findById(Integer id) {
 		String sql = "SELECT * FROM tbl_usuario WHERE cod_usuario=?";
-		Usuario usuario = new Usuario();
+		UsuarioInterface usuario = new Usuario();
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			stmt.setInt(1, id);
@@ -115,9 +116,9 @@ public class UsuarioDAO {
         }
 	}
 	
-	public List<Usuario> findFilter(String str){
+	public List<UsuarioInterface> findFilter(String str){
 		String sql = "SELECT * FROM tbl_usuario WHERE username LIKE '%?%' OR email LIKE '%?%' OR linkedin LIKE '%?%' OR github LIKE '%?%'";
-		List<Usuario> retorno = new ArrayList<>();
+		List<UsuarioInterface> retorno = new ArrayList<>();
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			stmt.setString(1, str);
@@ -148,9 +149,9 @@ public class UsuarioDAO {
 		return retorno;
 	}
 	
-	public List<Usuario> listAll() {
+	public List<UsuarioInterface> listAll() {
 		String sql = "SELECT * FROM tbl_usuario";
-		List<Usuario> retorno = new ArrayList<>();
+		List<UsuarioInterface> retorno = new ArrayList<>();
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			ResultSet resultado = stmt.executeQuery();
