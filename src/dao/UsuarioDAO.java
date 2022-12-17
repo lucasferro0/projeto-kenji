@@ -16,29 +16,18 @@ public class UsuarioDAO{
 		this.connection = connection;
 	}
 	
-	public boolean insert(Usuario usuario) {
+	public boolean insert(Usuario usuario) throws Exception {
 		String sql = "INSERT INTO tbl_usuario(username, email, senha, linkedin, github, biografia) VALUES(?,?,?,?,?,?)";
-		
-		try {
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
-			stmt.setString(1, usuario.getUsername());
-			stmt.setString(2, usuario.getEmail());
-			stmt.setString(3, usuario.getSenha());
-			stmt.setString(4, usuario.getLinkedin());
-			stmt.setString(5, usuario.getGithub());
-			stmt.setString(6, usuario.getBiografia());
-			stmt.execute();
-			return true;
-		}catch(SQLException e){
-            System.out.println("SQLException in file UsuarioDAO, function insert() - " + e.getMessage());
 
-            return false;
-        }catch(Exception e){
-            System.out.println("Exception in file UsuarioDAO, function insert() - " + e.getMessage());
-
-            return false;
-        }
-		
+		PreparedStatement stmt = this.connection.prepareStatement(sql);
+		stmt.setString(1, usuario.getUsername());
+		stmt.setString(2, usuario.getEmail());
+		stmt.setString(3, usuario.getSenha());
+		stmt.setString(4, usuario.getLinkedin());
+		stmt.setString(5, usuario.getGithub());
+		stmt.setString(6, usuario.getBiografia());
+		stmt.execute();
+		return true;
 	}
 	
 	public boolean update(Usuario usuario) {

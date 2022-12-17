@@ -4,6 +4,9 @@ import vo.Usuario;
 import dao.UsuarioDAO;
 import dao.ConexaoMySQL;
 import helpers.Crypt;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.util.List;
 import errors.*;
@@ -39,48 +42,40 @@ public class UsuarioBO {
         }
     }
 
-    public Boolean salvar(Usuario usuario)
+    public Boolean salvar(Usuario usuario) throws Exception
     {
-        try{
-            if (usuario.getUsername() == null){
-                throw new ValidationException("O username é obrigatório.");
-            }else if(usuario.getSenha() == null){
-                throw new ValidationException("A senha é obrigatória.");
-            }else if (usuario.getEmail() == null){
-                throw new ValidationException("O email é obrigatório.");
-            }
+        if (usuario.getUsername() == null){
+            throw new ValidationException("O username é obrigatório.");
+        }else if(usuario.getSenha() == null){
+            throw new ValidationException("A senha é obrigatória.");
+        }else if (usuario.getEmail() == null){
+            throw new ValidationException("O email é obrigatório.");
+        }
 
-            ConexaoMySQL connector = new ConexaoMySQL();
+        ConexaoMySQL connector = new ConexaoMySQL();
 
-            Crypt crypt = new Crypt();
-		    String senhaHashed = crypt.codificar(usuario.getSenha());
-            usuario.setSenha(senhaHashed);
+        Crypt crypt = new Crypt();
+        String senhaHashed = crypt.codificar(usuario.getSenha());
+        usuario.setSenha(senhaHashed);
 
-            Connection con = connector.getCon(); // Abre a conexão
-            UsuarioDAO usuarioDAO = new UsuarioDAO(con);
+        Connection con = connector.getCon(); // Abre a conexão
+        UsuarioDAO usuarioDAO = new UsuarioDAO(con);
 
-            connector.beginTransaction();
+        connector.beginTransaction();
 
-            Boolean wasInserted = usuarioDAO.insert(usuario);
+        Boolean wasInserted = usuarioDAO.insert(usuario);
 
-            if (! wasInserted){
-                connector.fechar();
-
-                return false;
-            }
-
-            connector.commit();
-
-            connector.fechar(); // Fecha a conexão
-
-            System.out.println("Usuário cadastrado com sucesso.");
-
-            return true;
-        }catch(Exception e){
-            System.out.println("Exception in file UsuarioBO, function store() - " + e.getMessage());
+        if (! wasInserted){
+            connector.fechar();
 
             return false;
         }
+
+        connector.commit();
+
+        connector.fechar(); // Fecha a conexão
+
+        return true;
     }
 
     public Boolean deletar(int id)
