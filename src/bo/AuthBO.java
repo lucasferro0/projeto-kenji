@@ -1,16 +1,14 @@
 package bo;
 
 import vo.Usuario;
-import vo.interfaces.UsuarioInterface;
 import dao.UsuarioDAO;
 import errors.ValidationException;
 import dao.ConexaoMySQL;
 import java.sql.Connection;
 import java.util.List;
-import vo.interfaces.UsuarioInterface;
 
 public class AuthBO {
-    public Boolean login(UsuarioInterface usuario)
+    public Boolean login(Usuario usuario)
     {
         try{
             ConexaoMySQL conector = new ConexaoMySQL();
@@ -18,11 +16,11 @@ public class AuthBO {
             Connection con = conector.getCon();
             UsuarioDAO usuarioDAO = new UsuarioDAO(con);
 
-            List<UsuarioInterface> usuarios =  usuarioDAO.listAll();
+            List<Usuario> usuarios =  usuarioDAO.listAll();
 
             conector.fechar();
 
-            for (UsuarioInterface user : usuarios) {
+            for (Usuario user : usuarios) {
                 if (user.getUsername() == usuario.getUsername() && user.getSenha() == usuario.getSenha()){
                     System.out.println("Login efetuado com sucesso.");
 

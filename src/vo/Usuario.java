@@ -1,8 +1,5 @@
 package vo;
-
-import vo.interfaces.UsuarioInterface;
-
-public class Usuario implements UsuarioInterface {
+public class Usuario{
 	private int isAdmin = 0; // 0 ou 1
 	private int idUsuario;
 	private String username = null;
@@ -24,6 +21,10 @@ public class Usuario implements UsuarioInterface {
 
 	public int getIsAdmin() {
 		return this.isAdmin;
+	}
+
+	public int setIsAdmin(int isAdmin) {
+		return this.isAdmin = isAdmin;
 	}
 
 	public Usuario setIdUsuario(int idUsuario) {

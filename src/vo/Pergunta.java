@@ -1,6 +1,6 @@
 package vo;
 
-public class Pergunta {
+public class Pergunta{
 	private int idPergunta;
 	private String titulo;
 	private String conteudoPergunta;
