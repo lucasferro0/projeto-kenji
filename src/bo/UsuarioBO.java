@@ -11,35 +11,28 @@ import java.sql.Connection;
 import java.util.List;
 import errors.*;
 public class UsuarioBO {
-    public Boolean mostrar()
+    public Boolean mostrar() throws Exception
     {
-        try{
-            ConexaoMySQL conector = new ConexaoMySQL();
+        ConexaoMySQL conector = new ConexaoMySQL();
 
-            Connection con = conector.getCon();
-            UsuarioDAO usuarioDAO = new UsuarioDAO(con);
+        Connection con = conector.getCon();
+        UsuarioDAO usuarioDAO = new UsuarioDAO(con);
 
-            List<Usuario> usuarios =  usuarioDAO.listAll();
+        List<Usuario> usuarios =  usuarioDAO.listAll();
 
-            conector.fechar();
+        conector.fechar();
 
-            int cont = 1;
-            for (Usuario usuario : usuarios) {
-                System.out.println("USUÁRIO " + cont + "\n");
-                System.out.println("Login: " + usuario.getUsername());
-                System.out.println("Senha: " + usuario.getSenha());
-                System.out.println("E-mail: " + usuario.getEmail());
-                System.out.println("\n");
+        int cont = 1;
+        for (Usuario usuario : usuarios) {
+            System.out.println("USUÁRIO " + cont + "\n");
+            System.out.println("Login: " + usuario.getUsername());
+            System.out.println("E-mail: " + usuario.getEmail());
+            System.out.println("\n");
 
-                cont+=1;
-            }
-
-            return true;
-        }catch(Exception e){
-            System.out.println("Exception in file UsuarioBO: " + e.getMessage());
-
-            return false;
+            cont+=1;
         }
+
+        return true;
     }
 
     public Boolean salvar(Usuario usuario) throws Exception

@@ -3,6 +3,7 @@ package view;
 import java.util.Scanner;
 
 import javax.swing.InputMap;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
 import bo.*;
 import vo.*;
@@ -15,29 +16,7 @@ public class Plataforma {
         System.out.println("Aqui você pode se cadastrar e realizar publicações.");
         System.out.println("\n");
 
-        this.mostrarOpcoesInicias();
-
-        System.out.println("\n");
-
-        String escolha = this.input();
-
-        if (escolha.equals("1")){
-            this.realizarCadastro();
-
-            this.realizarLogin();
-            // vai poder postar publicações e ver os usuários
-
-        }else if (escolha.equals("2")){
-            this.realizarLogin();
-
-            // vai poder postar publicações e ver usuários
-
-        }else if (escolha.equals("3")){
-            this.sair();
-
-        }else{
-            System.out.println("Opção inválida. Escolha novamente uma opção.");
-        }
+        this.escolherOpcoesInicias();
 
     }
 
@@ -49,12 +28,81 @@ public class Plataforma {
         System.out.println("[3] - Sair");
     }
 
+    private void escolherOpcoesInicias(){
+        this.mostrarOpcoesInicias();
+
+        System.out.println("\n");
+
+        String escolha = this.input();
+
+        if (escolha.equals("1")){
+            this.realizarCadastro();
+
+            this.realizarLogin();
+
+            this.escolherOpcoesToLogado();
+            // vai poder postar publicações e ver os usuários
+
+        }else if (escolha.equals("2")){
+            this.realizarLogin();
+
+            this.escolherOpcoesToLogado();
+
+            // vai poder postar publicações e ver usuários
+
+        }else if (escolha.equals("3")){
+            this.sair();
+
+        }else{
+            System.out.println("Opção inválida. Escolha novamente uma opção.");
+            this.escolherOpcoesInicias();
+        }
+    }
+
     private void mostrarOpcoesToLogado(){
         System.out.println("Agora que você está logado, você pode postar artigos e ver os usuários do fórum.");
         System.out.println("Escolha o a opção desejada.");
         System.out.println("\n");
         System.out.println("[1] - Ver todos os usuários do fórum");
-        System.out.println("[2] - Realizar publicação");
+        System.out.println("[2] - Ver todas as publicações");
+        System.out.println("[3] - Realizar publicação");
+    }
+
+    private void escolherOpcoesToLogado(){
+        this.mostrarOpcoesToLogado();
+        
+        String escolhaLogado = this.input();
+
+        if (escolhaLogado.equals("1")){
+            try{
+                UsuarioBO usuarioBO = new UsuarioBO();
+
+                usuarioBO.mostrar();
+            }catch(Exception e){
+                System.out.println("");
+            }
+        }else if (escolhaLogado.equals("2")){
+            try{
+                PerguntaBO perguntaBO = new PerguntaBO();
+
+                //
+            }catch(Exception e){
+                System.out.println("");
+            }
+        }else if(escolhaLogado.equals("3")){
+            // Realizar publicação
+        }else{
+            System.out.println("Opção inválida. Escolha novamente uma opção.");
+            this.escolherOpcoesToLogado();
+        }
+
+        System.out.println("Deseja realizar mais coisas ?");
+        System.out.println("Para sim digite s. Para não digite n.");
+        String escolhaSimNao = this.input();
+
+        if (escolhaSimNao.equalsIgnoreCase("s")){
+            this.escolherOpcoesToLogado();
+        }
     }
 
     private void realizarCadastro(){
