@@ -15,7 +15,7 @@ CREATE TABLE tbl_usuario(
 CREATE TABLE tbl_pergunta(
 	cod_pergunta int PRIMARY KEY AUTO_INCREMENT,
     titulo varchar(255),
-    conteudo varchar(255),
+    conteudo varchar(4000),
     cod_usuario int,
     FOREIGN KEY (cod_usuario) REFERENCES tbl_usuario (cod_usuario) 
 );

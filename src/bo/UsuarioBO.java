@@ -4,9 +4,6 @@ import vo.Usuario;
 import dao.UsuarioDAO;
 import dao.ConexaoMySQL;
 import helpers.Crypt;
-
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.util.List;
 import errors.*;

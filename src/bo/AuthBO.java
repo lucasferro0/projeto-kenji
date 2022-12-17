@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.util.List;
 
 public class AuthBO {
+    public Usuario currentUser;
+
     public Boolean login(Usuario usuario) throws Exception
     {
         ConexaoMySQL conector = new ConexaoMySQL();
@@ -22,6 +24,8 @@ public class AuthBO {
 
         for (Usuario user : usuarios) {
             if (user.getUsername().equals(usuario.getUsername()) && user.getSenha().equals(this.encode(usuario.getSenha()))){
+                this.currentUser = user;
+                
                 return true;
             }
         }

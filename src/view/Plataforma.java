@@ -10,6 +10,8 @@ import vo.*;
 
 public class Plataforma {
 
+    private Usuario currentUser = null;
+
     public void start(){
         System.out.println("Bem vindo ao Fórum !");
 
@@ -85,12 +87,37 @@ public class Plataforma {
             try{
                 PerguntaBO perguntaBO = new PerguntaBO();
 
-                //
+                perguntaBO.mostrar();
             }catch(Exception e){
                 System.out.println("");
             }
         }else if(escolhaLogado.equals("3")){
-            // Realizar publicação
+            try{
+                System.out.println("Digite o título do seu post:");
+                String titulo = this.input();
+
+                System.out.println("Digite o conteúdo do seu post:");
+                String conteudo = this.input();
+
+                Pergunta pergunta = new Pergunta();
+
+                System.out.println(this.currentUser.getIdUsuario());
+                System.out.println(this.currentUser.getUsername());
+
+                pergunta.setTitulo(titulo).setConteudoPergunta(conteudo).setUsuario(this.currentUser);
+
+                PerguntaBO perguntaBO = new PerguntaBO();
+
+                Boolean salvou = perguntaBO.salvar(pergunta);
+
+                if (salvou){
+                    System.out.println("Post realizado com sucesso.");
+                }else{
+                    System.out.println("O post não foi realizado.");
+                }
+            }catch(Exception e){
+                System.out.println("Erro ao public artigo - " + e.getMessage());
+            }
         }else{
             System.out.println("Opção inválida. Escolha novamente uma opção.");
             this.escolherOpcoesToLogado();
@@ -162,6 +189,7 @@ public class Plataforma {
             Boolean logou = auth.login(usuario);
 
             if (logou){
+                this.currentUser = auth.currentUser;
                 System.out.println("Usuário logado com sucesso.");
             }
         }catch(Exception e){
