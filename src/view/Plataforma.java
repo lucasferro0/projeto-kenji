@@ -101,9 +101,6 @@ public class Plataforma {
 
                 Pergunta pergunta = new Pergunta();
 
-                System.out.println(this.currentUser.getIdUsuario());
-                System.out.println(this.currentUser.getUsername());
-
                 pergunta.setTitulo(titulo).setConteudoPergunta(conteudo).setUsuario(this.currentUser);
 
                 PerguntaBO perguntaBO = new PerguntaBO();

@@ -19,13 +19,3 @@ CREATE TABLE tbl_pergunta(
     cod_usuario int,
     FOREIGN KEY (cod_usuario) REFERENCES tbl_usuario (cod_usuario) 
 );
-
-CREATE TABLE tbl_resposta(
-	cod_resposta int PRIMARY KEY AUTO_INCREMENT,
-    dsc_resposta varchar(255),
-    cod_usuario int,
-    cod_pergunta int,
-    is_favorita boolean DEFAULT false,
-    FOREIGN KEY (cod_usuario) REFERENCES tbl_usuario (cod_usuario),
-    FOREIGN KEY (cod_pergunta) REFERENCES tbl_pergunta (cod_pergunta)
-);
