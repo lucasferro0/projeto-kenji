@@ -1,10 +1,10 @@
 package vo;
 
-public class Pergunta {
+public class Pergunta{
 	private int idPergunta;
-	private String titulo;
-	private String conteudoPergunta;
-	private int idUsuario;
+	private String titulo = null;
+	private String conteudoPergunta = null;
+	private Usuario usuario = null;
 	
 	public Pergunta() {
 		
@@ -44,13 +44,13 @@ public class Pergunta {
 		return conteudoPergunta;
 	}
 	
-	public Pergunta setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
+	public Pergunta setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 
 		return this;
 	}
 	
-	public int getIdUsuario() {
-		return idUsuario;
+	public Usuario getUsuario() {
+		return this.usuario;
 	}
 }

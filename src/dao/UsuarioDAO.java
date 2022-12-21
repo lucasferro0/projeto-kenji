@@ -8,41 +8,29 @@ import java.util.ArrayList;
 import java.util.List;
 import errors.*;
 import vo.Usuario;
-import vo.interfaces.UsuarioInterface;
 
-public class UsuarioDAO {
+public class UsuarioDAO{
 	private Connection connection;
 	
 	public UsuarioDAO(Connection connection) {
 		this.connection = connection;
 	}
 	
-	public boolean insert(UsuarioInterface usuario) {
+	public boolean insert(Usuario usuario) throws Exception {
 		String sql = "INSERT INTO tbl_usuario(username, email, senha, linkedin, github, biografia) VALUES(?,?,?,?,?,?)";
-		
-		try {
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
-			stmt.setString(1, usuario.getUsername());
-			stmt.setString(2, usuario.getEmail());
-			stmt.setString(3, usuario.getSenha());
-			stmt.setString(4, usuario.getLinkedin());
-			stmt.setString(5, usuario.getGithub());
-			stmt.setString(6, usuario.getBiografia());
-			stmt.execute();
-			return true;
-		}catch(SQLException e){
-            System.out.println("SQLException in file UsuarioDAO, function insert() - " + e.getMessage());
 
-            return false;
-        }catch(Exception e){
-            System.out.println("Exception in file UsuarioDAO, function insert() - " + e.getMessage());
-
-            return false;
-        }
-		
+		PreparedStatement stmt = this.connection.prepareStatement(sql);
+		stmt.setString(1, usuario.getUsername());
+		stmt.setString(2, usuario.getEmail());
+		stmt.setString(3, usuario.getSenha());
+		stmt.setString(4, usuario.getLinkedin());
+		stmt.setString(5, usuario.getGithub());
+		stmt.setString(6, usuario.getBiografia());
+		stmt.execute();
+		return true;
 	}
 	
-	public boolean update(UsuarioInterface usuario) {
+	public boolean update(Usuario usuario) {
 		String sql = "UPDATE tbl_usuario SET username=?, email=?, senha=?, linkedin=?, github=?, biografia=? WHERE cod_usuario=?";
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
@@ -84,9 +72,9 @@ public class UsuarioDAO {
         }
 	}
 	
-	public UsuarioInterface findById(Integer id) {
+	public Usuario findById(Integer id) {
 		String sql = "SELECT * FROM tbl_usuario WHERE cod_usuario=?";
-		UsuarioInterface usuario = new Usuario();
+		Usuario usuario = new Usuario();
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			stmt.setInt(1, id);
@@ -116,9 +104,9 @@ public class UsuarioDAO {
         }
 	}
 	
-	public List<UsuarioInterface> findFilter(String str){
+	public List<Usuario> findFilter(String str){
 		String sql = "SELECT * FROM tbl_usuario WHERE username LIKE '%?%' OR email LIKE '%?%' OR linkedin LIKE '%?%' OR github LIKE '%?%'";
-		List<UsuarioInterface> retorno = new ArrayList<>();
+		List<Usuario> retorno = new ArrayList<>();
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			stmt.setString(1, str);
@@ -149,9 +137,9 @@ public class UsuarioDAO {
 		return retorno;
 	}
 	
-	public List<UsuarioInterface> listAll() {
+	public List<Usuario> listAll() {
 		String sql = "SELECT * FROM tbl_usuario";
-		List<UsuarioInterface> retorno = new ArrayList<>();
+		List<Usuario> retorno = new ArrayList<>();
 		try {
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			ResultSet resultado = stmt.executeQuery();

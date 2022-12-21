@@ -16,26 +16,16 @@ public class PerguntaDAO {
 		this.connection = connection;
 	}
 	
-	public boolean insert(Pergunta pergunta) {
+	public boolean insert(Pergunta pergunta) throws Exception {
 		String sql = "INSERT INTO tbl_pergunta(titulo, conteudo, cod_usuario) VALUES(?,?,?)";
-		
-		try {
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
-			stmt.setString(1, pergunta.getTitulo());
-			stmt.setString(2, pergunta.getConteudoPergunta());
-			stmt.setInt(3, pergunta.getIdUsuario());
-			stmt.execute();
 
-			return true;
-		}catch(SQLException e){
-            System.out.println("SQLException in file PerguntaDAO, function insert() - " + e.getMessage());
+		PreparedStatement stmt = this.connection.prepareStatement(sql);
+		stmt.setString(1, pergunta.getTitulo());
+		stmt.setString(2, pergunta.getConteudoPergunta());
+		stmt.setInt(3, pergunta.getUsuario().getIdUsuario());
+		stmt.execute();
 
-            return false;
-        }catch(Exception e){
-            System.out.println("Exception in file PerguntaDAO, function insert() - " + e.getMessage());
-
-            return false;
-        }
+		return true;
 		
 	}
 	
@@ -45,7 +35,7 @@ public class PerguntaDAO {
 			PreparedStatement stmt = this.connection.prepareStatement(sql);
 			stmt.setString(1, pergunta.getTitulo());
 			stmt.setString(2, pergunta.getConteudoPergunta());
-			stmt.setInt(3, pergunta.getIdUsuario());
+			stmt.setInt(3, pergunta.getUsuario().getIdUsuario());
             stmt.setInt(4, pergunta.getIdPergunta());
 			stmt.execute();
 
@@ -94,7 +84,7 @@ public class PerguntaDAO {
 			pergunta.setIdPergunta(resultado.getInt("cod_pergunta"));
 			pergunta.setTitulo(resultado.getString("titulo"));
 			pergunta.setConteudoPergunta(resultado.getString("conteudo"));
-			pergunta.setIdUsuario(resultado.getInt("cod_usuario"));
+			pergunta.setUsuario((new UsuarioDAO(this.connection)).findById(resultado.getInt("cod_usuario")));
 
 			return pergunta;
 		}catch(SQLException e){
@@ -123,7 +113,7 @@ public class PerguntaDAO {
 				pergunta.setIdPergunta(resultado.getInt("cod_pergunta"));
 				pergunta.setTitulo(resultado.getString("titulo"));
 				pergunta.setConteudoPergunta(resultado.getString("conteudo"));
-				pergunta.setIdUsuario(resultado.getInt("cod_usuario"));
+				pergunta.setUsuario((new UsuarioDAO(this.connection)).findById(resultado.getInt("cod_usuario")));
 				retorno.add(pergunta);
 			}
 			
@@ -138,28 +128,20 @@ public class PerguntaDAO {
 		return retorno;
 	}
 	
-	public List<Pergunta> listAll() {
+	public List<Pergunta> listAll() throws Exception {
 		String sql = "SELECT * FROM tbl_pergunta";
 		List<Pergunta> retorno = new ArrayList<>();
-		try {
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
-			ResultSet resultado = stmt.executeQuery();
-			while(resultado.next()) {
-				Pergunta pergunta = new Pergunta();
-				pergunta.setIdPergunta(resultado.getInt("cod_pergunta"));
-				pergunta.setTitulo(resultado.getString("titulo"));
-				pergunta.setConteudoPergunta(resultado.getString("conteudo"));
-				pergunta.setIdUsuario(resultado.getInt("cod_usuario"));
-				retorno.add(pergunta);
-			}
-			
-		}catch(SQLException e){
-            System.out.println("SQLException in file PerguntaDAO, function listAll() - " + e.getMessage());
-
-        }catch(Exception e){
-            System.out.println("Exception in file PerguntaDAO, function listAll() - " + e.getMessage());
-			
-        }
+		
+		PreparedStatement stmt = this.connection.prepareStatement(sql);
+		ResultSet resultado = stmt.executeQuery();
+		while(resultado.next()) {
+			Pergunta pergunta = new Pergunta();
+			pergunta.setIdPergunta(resultado.getInt("cod_pergunta"));
+			pergunta.setTitulo(resultado.getString("titulo"));
+			pergunta.setConteudoPergunta(resultado.getString("conteudo"));
+			pergunta.setUsuario((new UsuarioDAO(this.connection)).findById(resultado.getInt("cod_usuario")));
+			retorno.add(pergunta);
+		}
 
 		return retorno;
 	}

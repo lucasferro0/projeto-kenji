@@ -1,7 +1,6 @@
 package bo;
 
 import vo.Usuario;
-import vo.interfaces.UsuarioInterface;
 import dao.UsuarioDAO;
 import dao.ConexaoMySQL;
 import helpers.Crypt;
@@ -9,79 +8,64 @@ import java.sql.Connection;
 import java.util.List;
 import errors.*;
 public class UsuarioBO {
-    public Boolean mostrar()
+    public Boolean mostrar() throws Exception
     {
-        try{
-            ConexaoMySQL conector = new ConexaoMySQL();
+        ConexaoMySQL conector = new ConexaoMySQL();
 
-            Connection con = conector.getCon();
-            UsuarioDAO usuarioDAO = new UsuarioDAO(con);
+        Connection con = conector.getCon();
+        UsuarioDAO usuarioDAO = new UsuarioDAO(con);
 
-            List<UsuarioInterface> usuarios =  usuarioDAO.listAll();
+        List<Usuario> usuarios =  usuarioDAO.listAll();
 
-            conector.fechar();
+        conector.fechar();
 
-            int cont = 1;
-            for (UsuarioInterface usuario : usuarios) {
-                System.out.println("USUÁRIO " + cont + "\n");
-                System.out.println("Login: " + usuario.getUsername());
-                System.out.println("Senha: " + usuario.getSenha());
-                System.out.println("E-mail: " + usuario.getEmail());
-                System.out.println("\n");
+        int cont = 1;
+        for (Usuario usuario : usuarios) {
+            System.out.println("USUÁRIO " + cont + "\n");
+            System.out.println("Login: " + usuario.getUsername());
+            System.out.println("E-mail: " + usuario.getEmail());
+            System.out.println("\n");
 
-                cont+=1;
-            }
-
-            return true;
-        }catch(Exception e){
-            System.out.println("Exception in file UsuarioBO: " + e.getMessage());
-
-            return false;
+            cont+=1;
         }
+
+        return true;
     }
 
-    public Boolean salvar(Usuario usuario)
+    public Boolean salvar(Usuario usuario) throws Exception
     {
-        try{
-            if (usuario.getUsername() == null){
-                throw new ValidationException("O username é obrigatório.");
-            }else if(usuario.getSenha() == null){
-                throw new ValidationException("A senha é obrigatória.");
-            }else if (usuario.getEmail() == null){
-                throw new ValidationException("O email é obrigatório.");
-            }
+        if (usuario.getUsername() == null){
+            throw new ValidationException("O username é obrigatório.");
+        }else if(usuario.getSenha() == null){
+            throw new ValidationException("A senha é obrigatória.");
+        }else if (usuario.getEmail() == null){
+            throw new ValidationException("O email é obrigatório.");
+        }
 
-            ConexaoMySQL connector = new ConexaoMySQL();
+        ConexaoMySQL connector = new ConexaoMySQL();
 
-            Crypt crypt = new Crypt();
-		    String senhaHashed = crypt.codificar(usuario.getSenha());
-            usuario.setSenha(senhaHashed);
+        Crypt crypt = new Crypt();
+        String senhaHashed = crypt.codificar(usuario.getSenha());
+        usuario.setSenha(senhaHashed);
 
-            Connection con = connector.getCon(); // Abre a conexão
-            UsuarioDAO usuarioDAO = new UsuarioDAO(con);
+        Connection con = connector.getCon(); // Abre a conexão
+        UsuarioDAO usuarioDAO = new UsuarioDAO(con);
 
-            connector.beginTransaction();
+        connector.beginTransaction();
 
-            Boolean wasInserted = usuarioDAO.insert(usuario);
+        Boolean wasInserted = usuarioDAO.insert(usuario);
 
-            if (! wasInserted){
-                connector.fechar();
-
-                return false;
-            }
-
-            connector.commit();
-
-            connector.fechar(); // Fecha a conexão
-
-            System.out.println("Usuário cadastrado com sucesso.");
-
-            return true;
-        }catch(Exception e){
-            System.out.println("Exception in file UsuarioBO, function store() - " + e.getMessage());
+        if (! wasInserted){
+            connector.fechar();
 
             return false;
         }
+
+        connector.commit();
+
+        connector.fechar(); // Fecha a conexão
+
+        return true;
     }
 
     public Boolean deletar(int id)
@@ -97,7 +81,7 @@ public class UsuarioBO {
             Connection con = connector.getCon(); // Abre a conexão
             UsuarioDAO usuarioDAO = new UsuarioDAO(con);
 
-            UsuarioInterface usuario = usuarioDAO.findById(id);
+            Usuario usuario = usuarioDAO.findById(id);
             if (usuario == null){
                 throw new InvalidArgumentException("Erro ao deletar usuário.");
             }
